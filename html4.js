@@ -16,7 +16,7 @@ var
     setTimeout = window.setTimeout||setTimeout,
     clearTimeout = window.clearTimeout||clearTimeout,
     setInterval = window.setInterval||setInterval,
-    History = require('./index.js')
+    History = {}
 
 // Check Existence
 if ( typeof History.initHtml4 !== 'undefined' ) {

@@ -22,7 +22,7 @@ var
     clearInterval = window.clearInterval,
     JSON = window.JSON,
     alert = window.alert,
-    History = module.exports = {},
+    History = module.exports = require('./html4.js'),
     history = window.history; // Old History Object
 
 try {
@@ -60,9 +60,9 @@ History.init = function(options){
     }
 
     // Check Load Status of HTML4 Support
-    // if ( typeof History.initHtml4 !== 'undefined' ) {
-    //     History.initHtml4();
-    // }
+    if ( typeof History.initHtml4 !== 'undefined' ) {
+        History.initHtml4();
+    }
 
     // Return true
     return true;
@@ -803,7 +803,7 @@ History.initCore = function(options){
         // Hashify
         var State = {
             'data': data,
-            'title': title,
+            'title': title === "" ? "" : (title || document.title).toString(),
             'url': url
         };
 
@@ -968,7 +968,7 @@ History.initCore = function(options){
 
             // Create State
             if ( !State && create && !History.isTraditionalAnchor(url_or_hash) ) {
-                State = History.createStateObject(null,null,url);
+                State = History.createStateObject(null,document.title,url);
             }
         }
 
@@ -1308,10 +1308,10 @@ History.initCore = function(options){
         }
 
         // Apply
-        try {
-            document.getElementsByTagName('title')[0].innerHTML = title.replace('<','&lt;').replace('>','&gt;').replace(' & ',' &amp; ');
-        }
-        catch ( Exception ) { }
+        // try {
+        //     document.getElementsByTagName('title')[0].innerHTML = title.replace('<','&lt;').replace('>','&gt;').replace(' & ',' &amp; ');
+        // }
+        // catch ( Exception ) { }
         document.title = title;
 
         // Chain
@@ -1738,7 +1738,7 @@ History.initCore = function(options){
             // The State did not exist in our store
             if ( !newState ) {
                 // Regenerate the State
-                newState = History.createStateObject(null,null,History.getLocationHref());
+                newState = History.createStateObject(null,document.title,History.getLocationHref());
             }
 
             // Clean
