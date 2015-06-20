@@ -1820,6 +1820,8 @@ History.initCore = function(options){
                 // Fire HTML5 Event
                 if (silent !== true) {
                     History.Adapter.trigger(window,'popstate');
+                } else {
+                    History.busy(false);
                 }
             }
 
@@ -1879,6 +1881,8 @@ History.initCore = function(options){
                 // Fire HTML5 Event
                 if (silent !== true) {
                     History.Adapter.trigger(window,'popstate');
+                } else {
+                    History.busy(false);
                 }
             }
 
