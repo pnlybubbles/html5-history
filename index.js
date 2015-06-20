@@ -1777,7 +1777,7 @@ History.initCore = function(options){
          * @param {string} url
          * @return {true}
          */
-        History.pushState = function(data,title,url,queue){
+        History.pushState = function(data,title,url,queue,silent){
             //History.debug('History.pushState: called', arguments);
 
             // Check the State
@@ -1818,7 +1818,9 @@ History.initCore = function(options){
                 history.pushState(newState.id,newState.title,newState.url);
 
                 // Fire HTML5 Event
-                History.Adapter.trigger(window,'popstate');
+                if (silent !== true) {
+                    History.Adapter.trigger(window,'popstate');
+                }
             }
 
             // End pushState closure
@@ -1834,7 +1836,7 @@ History.initCore = function(options){
          * @param {string} url
          * @return {true}
          */
-        History.replaceState = function(data,title,url,queue){
+        History.replaceState = function(data,title,url,queue,silent){
             //History.debug('History.replaceState: called', arguments);
 
             // Check the State
@@ -1875,7 +1877,9 @@ History.initCore = function(options){
                 history.replaceState(newState.id,newState.title,newState.url);
 
                 // Fire HTML5 Event
-                History.Adapter.trigger(window,'popstate');
+                if (silent !== true) {
+                    History.Adapter.trigger(window,'popstate');
+                }
             }
 
             // End replaceState closure

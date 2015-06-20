@@ -502,7 +502,7 @@ History.initHtml4 = function(){
          * @param {string} url
          * @return {true}
          */
-        History.pushState = function(data,title,url,queue){
+        History.pushState = function(data,title,url,queue,silent){
             //History.debug('History.pushState: called', arguments);
 
             // We assume that the URL passed in is URI-encoded, but this makes
@@ -561,7 +561,9 @@ History.initHtml4 = function(){
 
             // Fire HTML5 Event
             if(!wasExpected)
-                History.Adapter.trigger(window,'statechange');
+                if (silent !== true) {
+                    History.Adapter.trigger(window,'statechange');
+                }
 
             // Update HTML4 Hash
             if ( !History.isHashEqual(newStateHash, html4Hash) && !History.isHashEqual(newStateHash, History.getShortUrl(History.getLocationHref())) ) {
@@ -583,7 +585,7 @@ History.initHtml4 = function(){
          * @param {string} url
          * @return {true}
          */
-        History.replaceState = function(data,title,url,queue){
+        History.replaceState = function(data,title,url,queue,silent){
             //History.debug('History.replaceState: called', arguments);
 
             // We assume that the URL passed in is URI-encoded, but this makes
@@ -641,7 +643,9 @@ History.initHtml4 = function(){
 
                 // Fire HTML5 Event
                 //History.debug('History.pushState: trigger popstate');
-                History.Adapter.trigger(window,'statechange');
+                if (silent !== true) {
+                    History.Adapter.trigger(window,'statechange');
+                }
                 History.busy(false);
             }
             else {
